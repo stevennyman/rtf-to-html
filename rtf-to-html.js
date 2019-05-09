@@ -70,25 +70,25 @@ function colorEq (aa, bb) {
 
 function CSS (chunk, defaults) {
   let css = ''
-  if (chunk.style.foreground != null && !colorEq(chunk.style.foreground, defaults.foreground)) {
+  if (chunk.style.foreground != null && chunk.style.foreground !== undefined && !colorEq(chunk.style.foreground, defaults.foreground)) {
     css += `color: rgb(${chunk.style.foreground.red}, ${chunk.style.foreground.green}, ${chunk.style.foreground.blue});`
   }
-  if (chunk.style.background != null && !colorEq(chunk.style.background, defaults.background)) {
+  if (chunk.style.background != null && chunk.style.background !== undefined && !colorEq(chunk.style.background, defaults.background)) {
     css += `background-color: rgb(${chunk.style.background.red}, ${chunk.style.background.green}, ${chunk.style.background.blue});`
   }
-  if (chunk.style.firstLineIndent != null && chunk.style.firstLineIndent > 0 && chunk.style.firstLineIndent !== defaults.firstLineIndent) {
+  if (chunk.style.firstLineIndent != null && chunk.style.firstLineIndent !== undefined && chunk.style.firstLineIndent > 0 && chunk.style.firstLineIndent !== defaults.firstLineIndent) {
     css += `text-indent: ${chunk.style.firstLineIndent / 20}pt;`
   }
-  if (chunk.style.indent != null && chunk.style.indent !== defaults.indent) {
+  if (chunk.style.indent != null && chunk.style.indent !== undefined && chunk.style.indent !== defaults.indent) {
     css += `padding-left: ${chunk.style.indent / 20}pt;`
   }
-  if (chunk.style.align != null && chunk.style.align !== defaults.align) {
+  if (chunk.style.align != null chunk.style.align !== undefined && && chunk.style.align !== defaults.align) {
     css += `text-align: ${chunk.style.align};`
   }
-  if (chunk.style.fontSize != null && chunk.style.fontSize !== defaults.fontSize) {
+  if (chunk.style.fontSize != null && chunk.style.fontSize !== undefined && chunk.style.fontSize !== defaults.fontSize) {
     css += `font-size: ${chunk.style.fontSize / 2}pt;`
   }
-  if (!defaults.disableFonts && chunk.style.font != null && chunk.style.font.name !== defaults.font.name) {
+  if (!defaults.disableFonts && chunk.style.font != null && chunk.style.font !== undefined && chunk.style.font.name !== defaults.font.name) {
     css += font(chunk.style.font)
   }
   return css
@@ -97,43 +97,66 @@ function CSS (chunk, defaults) {
 function styleTags (chunk, defaults) {
   let open = ''
   let close = ''
-  if (chunk.style.italic != null && chunk.style.italic !== defaults.italic) {
+  //For each styling, if the styling specific to this chunk is null/undefined, set if the default is true;
+  //if there is a styling specified for this chunk, set it if true
+  if (((chunk.style.italic === undefined) || chunk.style.italic == null)) && (defaults.italic == true))
+      || (chunk.style.italic == true)) {
     open += '<em>'
     close = '</em>' + close
   }
-  if (chunk.style.bold != null && chunk.style.bold !== defaults.bold) {
+  if (((chunk.style.bold === undefined) || chunk.style.bold == null)) && (defaults.bold == true))
+      || (chunk.style.bold == true)) {
     open += '<strong>'
     close = '</strong>' + close
   }
-  if (chunk.style.strikethrough != null && chunk.style.strikethrough !== defaults.strikethrough) {
+  if (((chunk.style.strikethrough === undefined) || chunk.style.strikethrough == null)) && (defaults.strikethrough == true))
+      || (chunk.style.strikethrough == true)) {
     open += '<s>'
     close = '</s>' + close
   }
-  if (chunk.style.underline != null && chunk.style.underline !== defaults.underline) {
+  if (((chunk.style.underline === undefined) || chunk.style.underline == null)) && (defaults.underline == true))
+      || (chunk.style.underline == true)) {
     open += '<u>'
     close = '</u>' + close
   }
-  if (chunk.style.valign != null && chunk.style.valign !== defaults.valign) {
-    if (chunk.style.valign === 'super') {
-      open += '<sup>'
-      close = '</sup>' + close
-    } else if (chunk.style.valign === 'sub') {
-      open += '<sup>'
-      close = '</sup>' + close
+  if (((chunk.style.valign === undefined) || chunk.style.valign == null)) && (defaults.valign == 'super'))
+      || (chunk.style.valign == 'super')) {
+    open += '<sup>'
+    close = '</sup>' + close
+  } else if (((chunk.style.valign === undefined) || chunk.style.valign == null)) && (defaults.valign == 'sub'))
+      || (chunk.style.valign == 'sub'))
+      open += '<sub>'
+      close = '</sub>' + close
     }
   }
   return {open, close}
 }
 
 function renderPara (para, defaults) {
-  if (!para.content || para.content.length === 0) return
-  const style = CSS(para, defaults)
+  if (para === null || para === undefined || !para.content || para.content.length === 0) return
+  var style = CSS(para, defaults)
   const tags = styleTags(para, defaults)
   const pdefaults = Object.assign({}, defaults)
   for (let item of Object.keys(para.style)) {
-    if (para.style[item] != null) pdefaults[item] = para.style[item]
+    if (para.style[item] != null && para.style[item] != undefined) pdefaults[item] = para.style[item]
   }
   const paraTag = defaults.paraTag
+  
+  style = style ? ' style="' + style + '"' : '';
+  var paraContent;
+  if (typeof para.content == 'undefined') {
+        //Allow for a single span, not organized in a paragraph
+        paraContent = `${tags.open}${para.value}${tags.close}`;
+        //console.log("Use value: " + para.value);
+  }
+  else {
+        //A true paragraph will contain one or more spans
+        paraContent = para.content.map(span => renderSpan(span, pdefaults)).join('');
+        if (paraContent.length < 1) {
+            paraContent = "&nbsp;";
+        }
+  }
+  
   return `<${paraTag}${style ? ' style="' + style + '"' : ''}>${tags.open}${para.content.map(span => renderSpan(span, pdefaults)).join('')}${tags.close}</${paraTag}>`
 }
 
