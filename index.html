@@ -11,7 +11,7 @@ rtfToHTML.fromString(files[0].toString(), (err, html) => {
 </head>
 <body>
 <h1>RTF to HTML Converter</h1>
-<input id="uploadbutton" type="file" onchange=filereadselected(this.files) accept=".rtf, ".RTF">Choose RTF File...</input>
+<input id="uploadbutton" type="file" onchange=fileselected(this.files) accept=".rtf, ".RTF" text="Choose RTF File..." />
 <p id="result"></p>
 </body>
 </html>
