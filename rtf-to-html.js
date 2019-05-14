@@ -1,5 +1,5 @@
 'use strict'
-module.exports = rtfToHTML
+//module.exports = rtfToHTML
 
 function outputTemplate (doc, defaults, content) {
   return `<!DOCTYPE html>
