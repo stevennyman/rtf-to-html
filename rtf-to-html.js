@@ -104,27 +104,27 @@ function styleTags (chunk, defaults) {
     open += '<em>'
     close = '</em>' + close
   }
-  if (((chunk.style.bold === undefined) || chunk.style.bold == null)) && (defaults.bold == true))
-      || (chunk.style.bold == true)) {
+  if ( ( ((chunk.style.bold === undefined) || (chunk.style.bold == null)) && (defaults.bold == true) )
+      || (chunk.style.bold == true) ) {
     open += '<strong>'
     close = '</strong>' + close
   }
-  if (((chunk.style.strikethrough === undefined) || chunk.style.strikethrough == null)) && (defaults.strikethrough == true))
-      || (chunk.style.strikethrough == true)) {
+  if ( ( ((chunk.style.strikethrough === undefined) || (chunk.style.strikethrough == null)) && (defaults.strikethrough == true) )
+      || (chunk.style.strikethrough == true) ) {
     open += '<s>'
     close = '</s>' + close
   }
-  if (((chunk.style.underline === undefined) || chunk.style.underline == null)) && (defaults.underline == true))
-      || (chunk.style.underline == true)) {
+  if ( ( ((chunk.style.underline === undefined) || (chunk.style.underline == null)) && (defaults.underline == true) )
+      || (chunk.style.underline == true) ) {
     open += '<u>'
     close = '</u>' + close
   }
-  if (((chunk.style.valign === undefined) || chunk.style.valign == null)) && (defaults.valign == 'super'))
-      || (chunk.style.valign == 'super')) {
+  if ( ( ((chunk.style.valign === undefined) || (chunk.style.valign == null)) && (defaults.valign == 'super') )
+      || (chunk.style.valign == 'super') ) {
     open += '<sup>'
     close = '</sup>' + close
-  } else if (((chunk.style.valign === undefined) || chunk.style.valign == null)) && (defaults.valign == 'sub'))
-      || (chunk.style.valign == 'sub'))
+  } else if ( ( ((chunk.style.valign === undefined) || (chunk.style.valign == null)) && (defaults.valign == 'sub') )
+      || (chunk.style.valign == 'sub') )
       open += '<sub>'
       close = '</sub>' + close
     }
