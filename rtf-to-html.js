@@ -99,7 +99,7 @@ function styleTags (chunk, defaults) {
   let close = ''
   //For each styling, if the styling specific to this chunk is null/undefined, set if the default is true;
   //if there is a styling specified for this chunk, set it if true
-  if (((chunk.style.italic === undefined) || chunk.style.italic == null)) && (defaults.italic == true))
+  if (((chunk.style.italic === undefined) || (chunk.style.italic == null)) && (defaults.italic == true))
       || (chunk.style.italic == true)) {
     open += '<em>'
     close = '</em>' + close
