@@ -1,5 +1,5 @@
 {
-  "name": "@iarna/rtf-to-html",
+  "name": "@UbiCue/rtf-to-html",
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
@@ -31,10 +31,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iarna/rtf-to-html.git"
+    "url": "git+https://github.com/UbiCue/rtf-to-html.git"
   },
   "bugs": {
-    "url": "https://github.com/iarna/rtf-to-html/issues"
+    "url": "https://github.com/UbiCue/rtf-to-html/issues"
   },
-  "homepage": "https://npmjs.com/package/@iarna/rtf-to-html"
+  "homepage": "https://npmjs.com/package/@UbiCue/rtf-to-html"
 }
