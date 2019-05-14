@@ -124,10 +124,9 @@ function styleTags (chunk, defaults) {
     open += '<sup>'
     close = '</sup>' + close
   } else if ( ( ((chunk.style.valign === undefined) || (chunk.style.valign == null)) && (defaults.valign == 'sub') )
-      || (chunk.style.valign == 'sub') )
+      || (chunk.style.valign == 'sub') ) {
       open += '<sub>'
       close = '</sub>' + close
-    }
   }
   return {open, close}
 }
