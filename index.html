@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>RTF to HTML Converter</title>
+<script src="rtf-to-html.js" />
+<script>
+function fileselected(files) {
+rtfToHTML.fromString(files[0].toString(), (err, html) => {
+  document.getElementByID("result").text = html;
+}) }
+</script>
+</head>
+<body>
+<h1>RTF to HTML Converter</h1>
+<input id="uploadbutton" type="file" onchange=filereadselected(this.files) accept=".rtf, ".RTF">Choose RTF File...</input>
+<p id="result"></p>
+</body>
+</html>
