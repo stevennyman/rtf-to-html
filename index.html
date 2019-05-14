@@ -4,7 +4,7 @@
 <script src="rtf-to-html.js"></script>
 <script>
 function fileselected(files) {
-rtfToHTML.fromString(files[0].toString(), (err, html) => {
+rtfToHTML(files[0].toString(), (err, html) => {
   document.getElementByID("result").text = html;
 }) }
 </script>
