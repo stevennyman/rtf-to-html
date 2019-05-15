@@ -1,10 +1,10 @@
 <html>
 <head>
 <title>RTF to HTML Converter</title>
-<script src="rtf-to-html.js"></script>
+<script src="index.js"></script>
 <script>
 function fileselected(files) {
-rtfToHTML(files[0].toString(), (err, html) => {
+rtfToHTML.fromString(files[0].toString(), (err, html) => {
   document.getElementByID("result").text = html;
 }) }
 </script>
